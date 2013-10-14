@@ -170,7 +170,7 @@ public class JiraHelper extends JFrame implements ActionListener, Observer {
 		setupMenu();
 		
 		URL jiraIconURL =  this.getClass().getResource("/resources/images/jira.gif");
-//		System.err.println("URL: " + jiraIconURL.toString());
+//		//System.err.println("URL: " + jiraIconURL.toString());
 		Image image = Toolkit.getDefaultToolkit().getImage(jiraIconURL);
 		setIconImage(image);
 		
@@ -196,7 +196,7 @@ public class JiraHelper extends JFrame implements ActionListener, Observer {
 			//Object[] tabJiraIssues = new Object[]{};
 			JList jiraIssuesList = new JList(tabJiraIssues);
 			jiraIssuesLists.add(jiraIssuesList);
-			//jiraIssuesLists.set(tabIndex, jiraIssuesList); // rememeber this list so that we can update it later
+			//jiraIssuesLists.set(tabIndex, jiraIssuesList); // remember this list so that we can update it later
 			
 			jiraIssuesList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			jiraIssuesList.setCellRenderer(a);
@@ -288,7 +288,7 @@ public class JiraHelper extends JFrame implements ActionListener, Observer {
 		panel.add(updateButton);
 	
 		Integer updateJiraIssuesListFrequency = prefs.getUpdateFrequency();//minutes
-		System.err.println("Update timer set with frequency of " + updateJiraIssuesListFrequency.toString() + " minutes.");
+		//System.err.println("Update timer set with frequency of " + updateJiraIssuesListFrequency.toString() + " minutes.");
 
 		timer = new Timer(updateJiraIssuesListFrequency*60*1000, this); // every 5 minutes
 		timer.setActionCommand("timer");
@@ -368,7 +368,7 @@ public class JiraHelper extends JFrame implements ActionListener, Observer {
 		
 		if (SystemTray.isSupported()) {
 
-			System.err.println("TrayIcon IS supported.");
+			//System.err.println("TrayIcon IS supported.");
 
 			SystemTray tray = SystemTray.getSystemTray();
 
@@ -441,14 +441,14 @@ public class JiraHelper extends JFrame implements ActionListener, Observer {
 			try {
 				tray.add(trayIcon);
 			} catch (AWTException e) {
-				System.err.println("TrayIcon could not be added.");
+				//System.err.println("TrayIcon could not be added.");
 			}			
 
 
 		} else {
 
 			// System Tray is not supported
-			System.err.println("TrayIcon not supported.");
+			//System.err.println("TrayIcon not supported.");
 
 		}
 		
@@ -469,18 +469,18 @@ public class JiraHelper extends JFrame implements ActionListener, Observer {
 
 		// Switch proxies on or off in the VM depending on preference
 		if (httpsProxyEnabled) {
-			System.err.println("HTTPS proxying is turned on");
+			//System.err.println("HTTPS proxying is turned on");
 			System.setProperty("https.proxyHost", httpsProxyHost);
 			System.setProperty("https.proxyPort", httpsProxyPort.toString());
 		} else {
-			System.err.println("HTTPS proxying is turned off");
+			//System.err.println("HTTPS proxying is turned off");
 			System.clearProperty("https.proxyHost");
 			System.clearProperty("https.proxyPort");			
 		}
 
 		String rssFeed;
 		try {
-			System.err.println("Loading " + RSS_FEED_URLS[feedIndex]);
+			//System.err.println("Loading " + RSS_FEED_URLS[feedIndex]);
 			rssFeed = rs.fetchSslRss(RSS_FEED_URLS[feedIndex]);
 
 			RssReader rssReader = new RssReader();
@@ -521,14 +521,14 @@ public class JiraHelper extends JFrame implements ActionListener, Observer {
 				ArrayList<Object> latestJiraIssues = new ArrayList<Object>();
 				
 				for (Integer feedIndex=0; feedIndex<RSS_FEED_NAMES.length; feedIndex++) {
-					System.err.println("start loop: " + feedIndex);
+					//System.err.println("start loop: " + feedIndex);
 				//	Integer feedIndex = 1;					
 					ArrayList<Object> feedLatestJiraIssues = getLatestJiraIssues(feedIndex);
-					System.err.println("feedLatestJiraIssues: " + feedLatestJiraIssues.toArray().length);
+					//System.err.println("feedLatestJiraIssues: " + feedLatestJiraIssues.toArray().length);
 					//feedLatestJiraIssues.add("Worker run count = " + workerRunCount); // number of times loaded
 					//latestJiraIssues.set(feedIndex, feedLatestJiraIssues);
 					latestJiraIssues.add(feedLatestJiraIssues);
-					System.err.println("stop loop: " + feedIndex);
+					//System.err.println("stop loop: " + feedIndex);
 				}
 				
 				return latestJiraIssues;
@@ -538,14 +538,14 @@ public class JiraHelper extends JFrame implements ActionListener, Observer {
 			public void done() {
 				//TODO - turn off loading gfx
 				try {
-//					System.err.println("done()");
+//					//System.err.println("done()");
 					ArrayList<Object> latestJiraIssues = get();					
 					
 					Integer allTabsJiraIssueCount = 0;
 					
 					for (Integer tabIndex = 0; tabIndex < tabbedPane.getTabCount(); tabIndex++) {
 							
-						System.err.println("Updating tab " + tabIndex);
+						//System.err.println("Updating tab " + tabIndex);
 						
 						ArrayList<Object> myJiraIssues = (ArrayList<Object>) latestJiraIssues.get(tabIndex); 
 						
@@ -589,7 +589,7 @@ public class JiraHelper extends JFrame implements ActionListener, Observer {
 					} else {
 						why = e.getMessage();
 					}
-					System.err.println("Error getting latest Jira Issues : " + why);
+					//System.err.println("Error getting latest Jira Issues : " + why);
 				}
 
 				// TODO - check that the timer has the correct duration (i.e. if config has changed...)
@@ -616,7 +616,7 @@ public class JiraHelper extends JFrame implements ActionListener, Observer {
 
 	private void actionShowSettingsPerformed(ActionEvent e) {
 
-		System.err.println("show settings!");
+		//System.err.println("show settings!");
 
 		PreferencesDialog prefs = new PreferencesDialog();
 		prefs.setLocationRelativeTo(this);
@@ -641,7 +641,7 @@ public class JiraHelper extends JFrame implements ActionListener, Observer {
 	}
 
 	private void actionPrintPerformed(ActionEvent e) {
-		System.err.println("print!");
+		//System.err.println("print!");
 		// TODO - refactor actionPrintPerformed out of the event handler thread
 		Integer tabIndex = 0;
 		this.printComponent(this.jiraIssuesLists.get(tabIndex)); // jiraWatchingList
@@ -649,14 +649,14 @@ public class JiraHelper extends JFrame implements ActionListener, Observer {
 
 	private void actionExitPerformed(ActionEvent e) {
 		// no niceties, just get out#
-		System.err.println("Exit!");
+		//System.err.println("Exit!");
 		this.dispose();
 		System.exit(0);
 
 	}
 
 	private void actionUpdatePerformed(ActionEvent e) {
-		System.err.println("Update!");
+		//System.err.println("Update!");
 		//NOTE: next 2 lines rolled into startLatestJiraIssuesWorker
 		//this.updateButton.setEnabled(false);
 		//this.loadLabel.setVisible(true);		
@@ -665,7 +665,7 @@ public class JiraHelper extends JFrame implements ActionListener, Observer {
 	}
 
 	private void actionAboutPerformed(ActionEvent e) {
-		System.err.println("about!");
+		//System.err.println("about!");
 		AboutDialog about = new AboutDialog();
 		about.setLocationRelativeTo(this);
 		about.setModal(true);
