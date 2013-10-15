@@ -11,11 +11,10 @@ import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.URIResolver;
-//import javax.xml.transform.URIResolver;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
-import uk.co.bbc.fmt.scotland.build.MyBBCResolver;
+//import uk.co.bbc.fmt.scotland.build.MyBBCResolver;
 
 public class SaxonDemo0 {
 
