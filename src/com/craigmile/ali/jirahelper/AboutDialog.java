@@ -31,7 +31,7 @@ public class AboutDialog extends JDialog{
 	 */
 	public static final long serialVersionUID = 1L;
 	public static final String APPLICATION_NAME = "Jira Helper";
-	public static final String APPLICATION_VERSION = "v1.0.0";
+	public static final String APPLICATION_VERSION = "v1.0.1";
 	public static final String APPLICATION_AUTHOR = "Ali Craigmile";
 	public static final String APPLICATION_EMAIL = "ali@craigmile.com";
 	public static final String APPLCIATION_ORGANISATION = "craigmile.com";
