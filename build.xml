@@ -3,16 +3,16 @@
     <!--this file was created by Eclipse Runnable JAR Export Wizard-->
     <!--ANT 1.7 is required                                        -->
     <target name="create_run_jar">
-        <jar destfile="/home/alic/workspace/JiraHelper/release/jirahelper.jar" filesetmanifest="mergewithoutmain">
+        <jar destfile="release/jirahelper.jar" filesetmanifest="mergewithoutmain">
             <manifest>
-                <attribute name="Main-Class" value="com.craigmile.ali.jirahelper.jirahelper"/>
+                <attribute name="Main-Class" value="com.craigmile.ali.jirahelper.JiraHelper"/>
                 <attribute name="Class-Path" value="."/>
             </manifest>
-            <fileset dir="/home/alic/workspace/jirahelper/bin"/>
-            <zipfileset excludes="META-INF/*.SF" src="/home/alic/workspace/jirahelper/lib/saxonb9-1-0-7j/saxon9.jar"/>
-            <zipfileset excludes="META-INF/*.SF" src="/home/alic/workspace/jirahelper/lib/mybbcresolver/mybbcresolver.jar"/>
-            <zipfileset excludes="META-INF/*.SF" src="/home/alic/workspace/jirahelper/lib/forms-1.3.0.jar"/>
-            <zipfileset excludes="META-INF/*.SF" src="/home/alic/workspace/jirahelper/lib/miglayout15-swing.jar"/>
+            <fileset dir="bin"/>
+            <zipfileset excludes="META-INF/*.SF" src="lib/saxonb9-1-0-7j/saxon9.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="lib/mybbcresolver/mybbcresolver.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="lib/forms-1.3.0.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="lib/miglayout15-swing.jar"/>
         </jar>
     </target>
 </project>
