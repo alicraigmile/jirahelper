@@ -1,3 +1,4 @@
 src/resources/data/example_jira_search_rss.xml
 data/example_jira_search_rss.xml
 bin/*
+/bin
