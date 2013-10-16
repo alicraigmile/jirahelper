@@ -33,9 +33,11 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.ResourceBundle;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -68,8 +70,6 @@ public class JiraHelper extends JFrame implements ActionListener, Observer {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private static final String APPLICATION_TITLE = "Jira Helper";
-
 	private static final String[] RSS_FEED_NAMES = {"Assigned to me", "My EXAMPLE tickets", "EXAMPLE risks"};
 
 	private static final String[] RSS_FEED_URLS = {
@@ -152,11 +152,17 @@ public class JiraHelper extends JFrame implements ActionListener, Observer {
 	
 	private JTabbedPane tabbedPane = null;
 
+	public ResourceBundle applicationBundle =  ResourceBundle.getBundle("application");
+	public ResourceBundle labelsBundle = ResourceBundle.getBundle("labels");
+	
+    
 	/**
 	 * Create the frame.
 	 */
 	public JiraHelper() {
-		setTitle(APPLICATION_TITLE);
+		
+		
+		setTitle(applicationBundle.getString("application.name"));
 		setBounds(100, 100, 450, 300);
 
 		if (SystemTray.isSupported()) {
@@ -224,7 +230,7 @@ public class JiraHelper extends JFrame implements ActionListener, Observer {
 								e1.printStackTrace();
 							}
 						} else {
-							System.out.println("Double clicked on " + item);
+							//System.out.println("Double clicked on " + item);
 						}
 					}
 				}
@@ -282,7 +288,7 @@ public class JiraHelper extends JFrame implements ActionListener, Observer {
 		panel.add(loadLabel);
 		loadLabel.setVisible(false);
 
-		updateButton = new Button("Update Issues");
+		updateButton = new Button(labelsBundle.getString("update.issues"));
 		updateButton.setActionCommand("update");
 		updateButton.addActionListener(this);
 		//updateButton.setMnemonic(KeyEvent.VK_U);
@@ -306,7 +312,7 @@ public class JiraHelper extends JFrame implements ActionListener, Observer {
 			ArrayList<Object> myIssues = new ArrayList<Object>();	
 			
 			String feedName = RSS_FEED_NAMES[feedIndex];
-			myIssues.add("Loading '" + feedName + "' feed...");
+			myIssues.add(labelsBundle.getString("loading")+" '" + feedName + "' feed...");
 			jiraIssues.put(feedIndex, myIssues);
 		}
 
@@ -321,13 +327,13 @@ public class JiraHelper extends JFrame implements ActionListener, Observer {
 		menu.setMnemonic(KeyEvent.VK_F);
 		menuBar.add(menu);
 
-		JMenuItem updateMenuItem = new JMenuItem("Update Issues");
+		JMenuItem updateMenuItem = new JMenuItem(labelsBundle.getString("update.issues"));
 		updateMenuItem.setActionCommand("update");
 		updateMenuItem.addActionListener(this);		
 		updateMenuItem.setMnemonic(KeyEvent.VK_U);
 		menu.add(updateMenuItem);
 
-		JMenuItem settingsMenuItem = new JMenuItem("Settings");
+		JMenuItem settingsMenuItem = new JMenuItem(labelsBundle.getString("settings"));
 		settingsMenuItem.setActionCommand("showSettings");
 		settingsMenuItem.addActionListener(this);		
 		settingsMenuItem.setMnemonic(KeyEvent.VK_E);
@@ -336,7 +342,7 @@ public class JiraHelper extends JFrame implements ActionListener, Observer {
 		JSeparator separator = new JSeparator();
 		menu.add(separator);
 
-		JMenuItem printMenuItem = new JMenuItem("Print"); 
+		JMenuItem printMenuItem = new JMenuItem(labelsBundle.getString("print")); 
 		printMenuItem.setActionCommand("print");
 		printMenuItem.addActionListener(this);		
 		printMenuItem.setMnemonic(KeyEvent.VK_P);
@@ -345,7 +351,7 @@ public class JiraHelper extends JFrame implements ActionListener, Observer {
 		JSeparator separator_1 = new JSeparator();
 		menu.add(separator_1);
 
-		JMenuItem exitMenuItem = new JMenuItem("Exit");
+		JMenuItem exitMenuItem = new JMenuItem(labelsBundle.getString("exit"));
 		exitMenuItem.setActionCommand("exit");
 		exitMenuItem.addActionListener(this);		
 		exitMenuItem.setMnemonic(KeyEvent.VK_X);
@@ -355,7 +361,7 @@ public class JiraHelper extends JFrame implements ActionListener, Observer {
 		helpMenu.setMnemonic(KeyEvent.VK_H);
 		menuBar.add(helpMenu);
 
-		JMenuItem aboutMenuItem = new JMenuItem("About " + APPLICATION_TITLE);
+		JMenuItem aboutMenuItem = new JMenuItem("About " + applicationBundle.getString("application.name"));
 		aboutMenuItem.setActionCommand("about");
 		aboutMenuItem.addActionListener(this);		
 		aboutMenuItem.setMnemonic(KeyEvent.VK_A);
@@ -385,11 +391,11 @@ public class JiraHelper extends JFrame implements ActionListener, Observer {
 			};
 
 			PopupMenu popup = new PopupMenu();
-			MenuItem defaultItem = new MenuItem("Exit");
+			MenuItem defaultItem = new MenuItem(labelsBundle.getString("exit"));
 			defaultItem.addActionListener(exitListener);
 			popup.add(defaultItem);
 
-			TrayIcon trayIcon = new TrayIcon(image, "Loading...", popup);
+			TrayIcon trayIcon = new TrayIcon(image, labelsBundle.getString("loading") + "...", popup);
 			
 			trayIcon.addMouseListener(new MouseListener() {
 
@@ -496,12 +502,12 @@ public class JiraHelper extends JFrame implements ActionListener, Observer {
 			}
 
 			if (items.size() == 0) {
-				data.add("No jira issues were found");		
+				data.add(labelsBundle.getString("no.issues.found"));		
 			}
 
 		} catch (Exception e) {
-			data.add("There was a problem: " + e.getClass().getCanonicalName());		
-			data.add("See STDERR for more details.");		
+			data.add(labelsBundle.getString("there.was.a.problem")+": " + e.getClass().getCanonicalName());		
+			data.add(labelsBundle.getString("see.stderr.for.details"));		
 			e.printStackTrace();
 		}
 
@@ -574,7 +580,7 @@ public class JiraHelper extends JFrame implements ActionListener, Observer {
 
 					
 					// Update the tray icon toolTip to show the number of issues found
-					String toolTip = allTabsJiraIssueCount + " Jira issues in total";
+					String toolTip = allTabsJiraIssueCount + " " + labelsBundle.getString("jira.issues.in.total");
 					SystemTray tray = SystemTray.getSystemTray();
 					tray.getTrayIcons()[0].setToolTip(toolTip);
 					

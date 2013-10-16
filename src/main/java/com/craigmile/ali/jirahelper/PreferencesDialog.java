@@ -7,6 +7,7 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
+import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
 
 import javax.swing.AbstractAction;
@@ -32,14 +33,22 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
 
+
+
+
+
 public class PreferencesDialog extends JDialog  {
 
+	public ResourceBundle applicationBundle =  ResourceBundle.getBundle("application");
+	public ResourceBundle labelsBundle = ResourceBundle.getBundle("labels");
+
+	
 	class SaveButtonListener extends Observable implements ActionListener
 	{
 		public void actionPerformed(ActionEvent e) {
 			savePreferences();
 			setVisible(false);
-			System.err.println("Saved Preferences, notifying observers...");
+			//System.err.println("Saved Preferences, notifying observers...");
 
 			setChanged();
 			notifyObservers();
@@ -127,44 +136,44 @@ public class PreferencesDialog extends JDialog  {
 				FormFactory.RELATED_GAP_ROWSPEC,
 				FormFactory.DEFAULT_ROWSPEC,}));
 		
-		JLabel lblUpdateFrequencyminutes = new JLabel("Update frequency");
+		JLabel lblUpdateFrequencyminutes = new JLabel(labelsBundle.getString("update.frequency"));
 		panel_2.add(lblUpdateFrequencyminutes, "2, 2, right, default");
 		
 		spinnerUpdateFrequency = new JSpinner();
 		panel_2.add(spinnerUpdateFrequency, "4, 2");
 		
-		JLabel lblHttpsCertAuthority = new JLabel("HTTPS cert authority");
+		JLabel lblHttpsCertAuthority = new JLabel(labelsBundle.getString("https.cert.authority"));
 		panel_2.add(lblHttpsCertAuthority, "2, 4, right, default");
 		
 		textFieldHttpsCertAuthority = new JTextField();
 		textFieldHttpsCertAuthority.setColumns(10);
 		panel_2.add(textFieldHttpsCertAuthority, "4, 4, fill, default");
 		
-		JLabel lblHttpsClientCert = new JLabel("HTTPS client cert");
+		JLabel lblHttpsClientCert = new JLabel(labelsBundle.getString("https.client.cert"));
 		panel_2.add(lblHttpsClientCert, "2, 6, right, default");
 		
 		textFieldHttpsClientCert = new JTextField();
 		textFieldHttpsClientCert.setColumns(10);
 		panel_2.add(textFieldHttpsClientCert, "4, 6, fill, default");
 		
-		JLabel lblHttpsClientPasskey = new JLabel("HTTPS client passkey");
+		JLabel lblHttpsClientPasskey = new JLabel(labelsBundle.getString("https.client.passkey"));
 		panel_2.add(lblHttpsClientPasskey, "2, 8, right, default");
 		
 		textFieldHttpsClientCertPasskey = new JPasswordField();
 		textFieldHttpsClientCertPasskey.setColumns(10);
 		panel_2.add(textFieldHttpsClientCertPasskey, "4, 8, fill, default");
 		
-		chckbxHttpsProxyEnabled = new JCheckBox("HTTPS Proxy Enabled");
+		chckbxHttpsProxyEnabled = new JCheckBox(labelsBundle.getString("https.proxy.enabled"));
 		panel_2.add(chckbxHttpsProxyEnabled, "4, 12");
 		
-		JLabel lblNewLabel = new JLabel("HTTPS proxy host");
+		JLabel lblNewLabel = new JLabel(labelsBundle.getString("https.proxy.host"));
 		panel_2.add(lblNewLabel, "2, 14, right, default");
 		
 		textFieldHttpsProxyHost = new JTextField();
 		panel_2.add(textFieldHttpsProxyHost, "4, 14, fill, default");
 		textFieldHttpsProxyHost.setColumns(10);
 		
-		JLabel lblNewLabel_1 = new JLabel("HTTPS proxy port");
+		JLabel lblNewLabel_1 = new JLabel(labelsBundle.getString("https.proxy.port"));
 		panel_2.add(lblNewLabel_1, "2, 16, right, default");
 		
 		spinnerHttpsProxyPort = new JSpinner();
@@ -184,8 +193,7 @@ public class PreferencesDialog extends JDialog  {
 		
 		JEditorPane lblNewLabel_2 = new JEditorPane();
 		lblNewLabel_2.setEditable(false);
-		lblNewLabel_2.setText("Jira Helper currently displays all Jira Issues assigned to you.\r" +
-		"Future releases will show Watched issues and let you add\rcustom feeds of issues.");
+		lblNewLabel_2.setText(labelsBundle.getString("feeds.note"));
 		panel.add(lblNewLabel_2);
 		
 		populateForm();

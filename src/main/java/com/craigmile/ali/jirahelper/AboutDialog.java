@@ -8,6 +8,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ResourceBundle;
 
 import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
@@ -30,15 +31,13 @@ public class AboutDialog extends JDialog{
 	 * 
 	 */
 	public static final long serialVersionUID = 1L;
-	public static final String APPLICATION_NAME = "Jira Helper";
-	public static final String APPLICATION_VERSION = "v1.0.1";
-	public static final String APPLICATION_AUTHOR = "Ali Craigmile";
-	public static final String APPLICATION_EMAIL = "ali@craigmile.com";
-	public static final String APPLCIATION_ORGANISATION = "craigmile.com";
+	public ResourceBundle applicationBundle =  ResourceBundle.getBundle("application");
+	public ResourceBundle labelsBundle = ResourceBundle.getBundle("labels");
+	
 	
 	
 	public AboutDialog() {
-		setTitle("About " + APPLICATION_NAME);
+		setTitle(labelsBundle.getString("about") + " " + applicationBundle.getString("application.name"));
 		setSize(370,252);
 		setMinimumSize(getSize());
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -48,7 +47,7 @@ public class AboutDialog extends JDialog{
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 		getContentPane().setLayout(gridBagLayout);
 		
-		JLabel jiraLogoLabel = new JLabel(new ImageIcon(this.getClass().getResource("/resources/images/jira.gif")));
+		JLabel jiraLogoLabel = new JLabel(new ImageIcon(this.getClass().getResource("/images/jira.gif")));
 		jiraLogoLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		GridBagConstraints gbc_jiraLogoLabel = new GridBagConstraints();
 		gbc_jiraLogoLabel.anchor = GridBagConstraints.SOUTH;
@@ -65,7 +64,7 @@ public class AboutDialog extends JDialog{
         String bodyRule = "body { font-family: " + font.getFamily() + "; " +
                 "font-size: " + font.getSize() + "pt; } h1 { color: blue; text-align:center} p { text-align:center}";
 
-        JEditorPane aboutMsg = new JEditorPane("text/html","<html>\n<h1>" + APPLICATION_NAME + " " + APPLICATION_VERSION + "</h1>\n<p><b>Your Jira issues, right there in your system tray.</b></p>\n<p>by " + APPLICATION_AUTHOR + " &lt;<a href=\"mailto:"+APPLICATION_EMAIL+"\">"+APPLICATION_EMAIL+"</a>&gt;</p>\n<p>(c) 2011 "+APPLCIATION_ORGANISATION+"</p>\n</html>");
+        JEditorPane aboutMsg = new JEditorPane("text/html","<html>\n<h1>" + applicationBundle.getString("application.name") + " " + applicationBundle.getString("application.version") + "</h1>\n<p><b>" + labelsBundle.getString("tagline") + "</b></p>\n<p><a href=\""+applicationBundle.getString("application.url")+"\">"+applicationBundle.getString("application.url")+"</a></p>\n<p>(c) "+applicationBundle.getString("application.copyright")+"</p>\n</html>");
 				aboutMsg.setEditable(false);  
 				aboutMsg.setOpaque(false);  
 				((HTMLDocument)aboutMsg.getDocument()).getStyleSheet().addRule(bodyRule);
